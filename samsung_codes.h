@@ -10,7 +10,7 @@ struct CodeNamePair {
   // name of the command, eg "power"
   prog_char name[LONGEST_NAME];
 
-  // the command code to use from LIRC eg 0xE0E040BF
+  // the appreviated command code to use from LIRC, eg 0x40BF out of the full 0xE0E040BF
   uint16_t code;
 };
 
@@ -62,7 +62,8 @@ const CodeNamePair CODES[] PROGMEM = {
 
 const int NO_CODES = (int) (sizeof(CODES) / sizeof(CodeNamePair));
 
-// prefix for all samsung devices (I think this is device 7, subdevice 7, bit order inverted within their bytes, then both bytes shifted up to the top of the dword, since the command is the bottom (LSB) byte)
+// Prefix for all samsung devices (I think this is device 7, subdevice 7, bit order inverted within their bytes, then both bytes shifted up to the top of the dword, since the command is the bottom (LSB) byte).
+// In other words, the numbers are each encoded MSB first
 const unsigned long SAMSUNG_PREFIX = 0xE0E00000;
 
 unsigned long findCodeByName(const char *name){
